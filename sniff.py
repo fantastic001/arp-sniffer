@@ -2,12 +2,12 @@
 from scapy.all import *
 
 def arp_monitor_callback(pkt):
-    if ARP in pkt and pkt[ARP].op in (1,2): #who-has or is-at
+    if arp in pkt and pkt[arp].op in (1,2): #who-has or is-at
         op = ""
-        if pkt[ARP].op == 1: 
-            op = "Who has "
+        if pkt[arp].op == 1: 
+            op = "who has "
         else:
-            op = "Is at"
-        return op + pkt.sprintf("%ARP.hwsrc% %ARP.psrc%")
+            op = "is at"
+        return op + pkt.sprintf("%arp.hwsrc% %arp.psrc%")
 
 sniff(prn=arp_monitor_callback, filter="arp", store=0)
